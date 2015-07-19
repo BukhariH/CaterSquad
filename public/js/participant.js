@@ -26,9 +26,9 @@ function submit() {
 $( document ).ready(function() {
     //loadImages();
 
-    $(".MyImg").click(function(){
-        $("div").removeClass("selected-img");
+    $(".restaurant-card").click(function(){
+        $(".restaurant-card").removeClass("picked-card");
+        $(this).addClass("picked-card");
         meal = $(this).find("img").attr("id");
-        $(this).addClass("selected-img");
     });
 });

@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,6 +14,7 @@
 
     <!-- Custom CSS -->
     <link href="css/main.css" rel="stylesheet">
+    <link href="css/participant.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -38,7 +37,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <img src="img/catersquad%20white.png">
+                <img src="img/catersquad-white.png">
                 <h1>Pick your favorite meal</h1>
             </div>
         </div>
@@ -48,24 +47,67 @@
 
 <!-- Selection Section -->
 <section class="selection-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="MyImg selected-img"><img src="img/burger.jpg" id="1"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel panel-default restaurant-card">
+          <div class="panel-body">
+            <div class="panel-info">
+              <div><img src="img/burger.jpg" id="3"></div>
             </div>
-            <div class="col-lg-12">
-                <div class="MyImg"><img src="img/burrito.jpg" id="2"></div>
-            </div>
-            <div class="col-lg-12">
-                <div class="MyImg"><img src="img/eggs.jpg" id="3"></div>
-            </div>
+          </div>
+          <div class="panel-footer">
+            <h3>Burger with fries</h3>
+            <p>This very taste burger is full of stuff you probably are allergic too, so please don't pick it! ($6)</p>
+          </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <button onclick="submit()" class="btn-xl">Submit</button>
+      </div>
+      <div class="col-md-6">
+        <div class="panel panel-default restaurant-card">
+          <div class="panel-body">
+            <div class="panel-info">
+              <div><img src="img/burrito.jpg" id="1"></div>
             </div>
+          </div>
+          <div class="panel-footer">
+            <h3>Burrito</h3>
+          </div>
         </div>
+      </div>
     </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel panel-default restaurant-card">
+          <div class="panel-body">
+            <div class="panel-info">
+              <div><img src="img/eggs.jpg" id="2"></div>
+            </div>
+          </div>
+          <div class="panel-footer">
+            <h3>Bacon and Eggs</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="panel panel-default restaurant-card">
+          <div class="panel-body">
+            <div class="panel-info">
+              <p>info</p>
+            </div>
+          </div>
+          <div class="panel-footer">
+            <h3>Something else delicious</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <button onclick="submit()" class="btn-xl">Submit</button>
+      </div>
+    </div>
+  </div>
 </section>
 
 

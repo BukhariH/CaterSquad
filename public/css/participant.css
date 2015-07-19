@@ -1,0 +1,33 @@
+.selected-img {
+    background-color: #c05f5f;
+}
+
+.selection-section img {
+    width: 100%;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+.picked-card {
+    border: #c05f5f 1px solid;
+}
+
+.picked-card .panel-body {
+    border-bottom: #c05f5f 1px solid;
+}
+
+.panel-heading {
+    text-align: left;
+}
+
+.panel-body {
+    padding: 0;
+}
+
+.panel-footer {
+    text-align: left;
+}
+
+.panel-footer h3 {
+    margin-top: 0;
+}
