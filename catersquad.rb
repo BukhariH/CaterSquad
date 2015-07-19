@@ -15,4 +15,13 @@ class Catersquad < Sinatra::Base
   	content_type :json
   	params.to_json
   end
+
+  get "/participant" do
+    erb :participant
+  end
+
+  get "/restaurant" do
+    erb :restaurant
+  end
+
 end
