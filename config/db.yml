@@ -1,0 +1,6 @@
+# Sequel Database Configuration
+
+development: "postgres://bukharih@localhost/catersquad_development"
+test: "postgres://bukharih@localhost/catersquad_test"
+production: "postgres://bukharih@localhost/catersquad_production"
+
