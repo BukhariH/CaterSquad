@@ -5,12 +5,20 @@
 }
 
 .post-content {
-    background: none repeat scroll 0 0 #000;
     opacity: 0.8;
     left:0;
     bottom:0;
     position: absolute;
     width: 100%;
+}
+
+.resta-card .post-content {
+    background: none repeat scroll 0 0 #000;
+}
+
+.meal-card .post-content {
+    background: none repeat scroll 0 0 #fff;
+    opacity: 0.9;
 }
 
 .thumbnail {
@@ -38,6 +46,11 @@ img {
 .caption p {
     margin: 0;
     padding: 0;
+}
+
+.caption img {
+    width: 20px;
+    display: inline;
 }
 
 .title-header {
