@@ -29,7 +29,7 @@ class Catersquad < Sinatra::Base
       parts_db.insert(:email => participant, :hash => hash, :event_id => event_id)
     end
 
-    {:status => "success"}
+    {:status => "success", :event_id => event_id}
   end
 
   get "/participant" do
@@ -38,6 +38,14 @@ class Catersquad < Sinatra::Base
 
   get "/restaurant" do
     erb :restaurant
+  end
+
+  get "/api/meals.json" do
+    content_type :json
+    events = DB[:events]
+    price_limit = events.where(:id => params["event_id"]).first[:prperson]
+    DB["SELECT restaurants.id, restaurants.image, restaurants.description, restaurants.title, meals.title, meals.description, meals.image, meals.price, meals.id, meals.restaurant_id FROM public.restaurants, public.meals WHERE meals.restaurant_id = restaurants.id AND meals.price <= #{price_limit};"].all.to_json
+
   end
 
 end
