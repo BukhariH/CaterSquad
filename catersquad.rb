@@ -1,9 +1,15 @@
 require 'json'
 require 'sequel'
+require 'SecureRandom'
+require 'digest/sha1'
+require 'Date'
+
+require 'mandrill'
+mandrill = Mandrill::API.new 'smlwk6WCFKTbxU5hjOb3qg'
 
 class Catersquad < Sinatra::Base
 	
-	# DB = Sequel.sqlite
+	DB = Sequel.connect('postgres://idzwaykrnfvkeu:qVtnOGJuUlME0UDDAyUjN_O8U5@ec2-54-228-180-92.eu-west-1.compute.amazonaws.com:5432/dbohuugivq02rr')
 
   set :public_folder => "public", :static => true
 
@@ -12,8 +18,18 @@ class Catersquad < Sinatra::Base
   end
 
   post "/" do
-  	content_type :json
-  	params.to_json
+    content_type :json
+   events = DB[:events]
+   events.insert(:title => params["title"], :description => params["description"], :endDate => params["end"], :startDate => params["start"], :prperson => params["prperson"].to_i * 100)
+    participants = params["participants"].split(',')
+    event_id = events.where(:title => params["title"], :description => params["description"], :endDate => params["end"], :startDate => params["start"], :prperson => params["prperson"].to_i * 100).limit(1).first[:id]
+    parts_db = DB[:participants]
+    participants.each do |participant|
+      hash = Digest::SHA1.hexdigest(participant + SecureRandom.hex)
+      parts_db.insert(:email => participant, :hash => hash, :event_id => event_id)
+    end
+
+    {:status => "success"}
   end
 
   get "/participant" do

@@ -194,11 +194,12 @@ function submit() {
     var location = $("#location").val();
     var participants = $("#participants").val();
     var restaurant = $("#restaurant").val();
+    var prperson = $("#prperson").val();
 
     $("#restaurantInformation").hide(1000);
     scrollToTop();
     $("#successInformation").show(1000);
-/*
+
     //TODO: change URL
     $.post("/",
      {
@@ -207,13 +208,14 @@ function submit() {
          end: timeEnd,
          description: description,
          participants: participants,
-         restaurant: restaurant
+         restaurant: restaurant,
+         prperson: prperson
      },
      function(data, status){
          // alert("Data: " + data + "\nStatus: " + status);
          console.log(data)
      }
-     );*/
+     );
 }
 
 function chooserestaurant(){

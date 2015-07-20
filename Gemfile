@@ -10,6 +10,8 @@ gem "pg"
 gem "puma"
 gem "shotgun"
 
+gem 'mandrill-api'
+
 group :development do
   gem "rake", "~> 10.0"
   gem "minitest", "~> 5.2"
