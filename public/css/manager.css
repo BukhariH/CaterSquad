@@ -1,0 +1,72 @@
+@media (min-width: 979px) {
+    body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+    }
+}
+
+.post-content {
+    background: none repeat scroll 0 0 #000;
+    opacity: 0.8;
+    left:0;
+    bottom:0;
+    position: absolute;
+    width: 100%;
+}
+
+.thumbnail {
+    position:relative;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    border: 0;
+}
+
+img {
+    position: relative;
+    margin: 0 auto;
+    display: table;
+}
+
+.thumbnail .caption {
+    padding: 3px;
+    text-align: center;
+    color:#FFF !important;
+    font-size: medium !important;
+}
+
+.caption p {
+    margin: 0;
+    padding: 0;
+}
+
+.title-header {
+    color: #c05f5f;
+    opacity: 1;
+}
+
+.price-header {
+    color: #449d44;
+    opacity: 1;
+}
+
+.resta-description {
+    text-align: left;
+}
+
+.resta-description p {
+    color: white;
+}
+
+#restaurants .col-sm-4 {
+    padding-top: 15px;
+
+}
+
+.resta-card {
+    background-color: grey;
+}
+
+.meal-card {
+    background-color: lightgray;
+}
