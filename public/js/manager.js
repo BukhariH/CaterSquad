@@ -191,9 +191,10 @@ function submit() {
     var participants = $("#participants").val();
     var restaurant = $("#restaurant").val();
 
-    // $("#restaurantInformation").hide(1000);
-    // $("#eventInformation").show(1000);
-
+    $("#restaurantInformation").hide(1000);
+    scrollToTop();
+    $("#successInformation").show(1000);
+/*
     //TODO: change URL
     $.post("/",
      {
@@ -208,7 +209,7 @@ function submit() {
          // alert("Data: " + data + "\nStatus: " + status);
          console.log(data)
      }
-     );
+     );*/
 }
 
 function chooserestaurant(){
@@ -237,13 +238,14 @@ function chooserestaurant(){
         participants.closest('div[class^="form-group"]').addClass("has-error");
         hasErrors = true;
     }
-    $("html, body").animate({ scrollTop: 0 }, "slow");
     if (hasErrors){
+        scrollToTop();
         return;
     }
 
     restaurantPicker();
     $("#eventInformation").hide(1000);
+    scrollToTop();
     $("#restaurantInformation").show(1000);
 }
 
@@ -267,4 +269,8 @@ function budgetHandler(){
         prPerson.val( (Math.round(budget.val() / participants * 100) / 100)+"" );
     });
 
+}
+
+function scrollToTop(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
 }
