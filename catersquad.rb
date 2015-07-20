@@ -26,14 +26,14 @@ class Catersquad < Sinatra::Base
     parts_db = DB[:participants]
     participants.each do |participant|
       hash = Digest::SHA1.hexdigest(participant + SecureRandom.hex)
-      parts_db.insert(:email => participant, :hash => hash, :event_id => event_id, meal )
+      parts_db.insert(:email => participant, :hash => hash, :event_id => event_id)
     end
 
     {:status => "success", :event_id => event_id}
   end
 
   get "/participant/:hash" do
-    participants
+
     # erb :participant
   end
 
