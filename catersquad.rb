@@ -42,10 +42,17 @@ class Catersquad < Sinatra::Base
 
   get "/api/meals.json" do
     content_type :json
-    events = DB[:events]
-    price_limit = events.where(:id => params["event_id"]).first[:prperson]
-    DB["SELECT restaurants.id, restaurants.image, restaurants.description, restaurants.title, meals.title, meals.description, meals.image, meals.price, meals.id, meals.restaurant_id FROM public.restaurants, public.meals WHERE meals.restaurant_id = restaurants.id AND meals.price <= #{price_limit};"].all.to_json
+    
+    rests = DB[:restaurants].all
 
+    results = []
+    rests.each do |rest|
+      meals_res = DB["SELECT * FROM public.meals WHERE meals.price <= #{params["prperson"].to_i};"].all
+      # meals_res = meals.where(:price < params["prperson"].to_i).all
+      results << {:restaurant => rest, :meals => meals_res}
+    end
+
+    results.to_json
   end
 
 end
