@@ -18,9 +18,55 @@ function loadMeals(){
 }
 
 function addmeal(){
-    var meal = new Meal("", "","", "");
-    meal.doSomething();
+    $("#viewmeals").hide(1000);
+    scrollToTop();
+    $("#addmeal").show(1000);
+}
+
+function showmeals(){
+    $("#addmeal").hide(500);
+    scrollToTop();
+    $("#viewmeals").show(500);
+}
+
+function createmeal(){
+    var title = $("#title");
+    var image = $("#image");
+    var price = $("#price");
+    var description = $("#description");
+
+    //TODO: validation
+
+    $(".form-group").removeClass("has-error");
+    var hasErrors = false;
+
+    if (!title.val()){
+        title.closest('div[class^="form-group"]').addClass("has-error");
+        hasErrors = true;
+    }
+    if (!image.val()){
+        image.closest('div[class^="form-group"]').addClass("has-error");
+        hasErrors = true;
+    }
+    if (!price.val() || !IsNumeric(price.val()) || price.val() <= 0){
+        price.closest('div[class^="form-group"]').addClass("has-error");
+        hasErrors = true;
+    }
+    if (!description.val()){
+        description.closest('div[class^="form-group"]').addClass("has-error");
+        hasErrors = true;
+    }
+
+    if (hasErrors){
+        scrollToTop();
+        return;
+    }
+
+    var meal = new Meal(title.val(), description.val(), image.val(), price.val());
+    //TODO: update to server
+    meals.push(meal);
     updateGui();
+    showmeals();
 }
 
 function updateGui(){
@@ -49,3 +95,10 @@ function removeMeal(meal){
     updateGui();
 }
 
+function scrollToTop(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
+}
+
+function IsNumeric(input) {
+    return (input - 0) == input && (''+input).trim().length > 0;
+}

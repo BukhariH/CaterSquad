@@ -56,6 +56,19 @@ body {
     background-color: #c05f5f;
 }
 
+.btn-l {
+    margin-top: 40px;
+    padding: 15px 30px;
+    border-color: #c05f5f;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    background-color: #c05f5f;
+}
+
 .tokenfield {
     text-align: left;
 }
