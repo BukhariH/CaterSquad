@@ -45,7 +45,11 @@ $( document ).ready(function() {
 
 function updatePrice(){
     $("#numberparticipants").val(participants +"").change();
+}
 
+function resetParticipants(){
+    $(".token").remove();
+    participants = 0;
 }
 
 function formatDate(input){
@@ -112,7 +116,7 @@ function fileUpload(){
             $('#location').val(event.location + "");
             $('#timestart').val(formatDate(event.startDate.toJSDate()) +"");
             $("#timeend").val(formatDate(event.endDate.toJSDate()) +"");
-            $(".token").remove();
+            resetParticipants();
             var participants = $('#participants-tokenfield');
             participants.focus();
             for (var i = 0; i < event.attendees.length; i++) {
@@ -124,7 +128,7 @@ function fileUpload(){
                     participants.trigger(jQuery.Event('keypress', {which: 44}));
                 }
             };
-
+            $("#budget").focus();
             console.log(event);
 
             // Get start and end dates as local time on current machine
