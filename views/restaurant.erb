@@ -47,7 +47,8 @@
 <!-- Selection Section -->
 <section class="selection-section">
     <div class="container">
-        <ul class="list-group" id="meals"> <!--
+        <div id="viewmeals">
+            <ul class="list-group" id="meals"> <!--
             <li>
                 <div class="panel panel-default restaurant-card">
                     <div class="panel-heading">
@@ -64,15 +65,57 @@
                     </div>
                 </div>
             </li> -->
-        </ul>
-        <div class="row">
-            <div class="col-lg-12">
-                <button onclick="addmeal()" class="btn-xl">Add Meal</button>
+            </ul>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <button onclick="addmeal()" class="btn-xl">Add Meal</button>
+                </div>
             </div>
         </div>
 
-        <div class="row">
-
+        <div id="addmeal" hidden>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" id="title" placeholder="Delicious burger" required>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="image">Image</label>
+                        <input type="text" class="form-control" id="image" placeholder="burger.jpg" required>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="control-label" for="price">Price</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><span class="glyphicon glyphicon-usd"></span></div>
+                            <input type="number" class="form-control" id="price" placeholder="0" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea class="form-control" rows="3" id="description" placeholder="Description of your meal" required></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <button onclick="createmeal()" class="btn-xl">Add Meal</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <button onclick="showmeals()" class="btn-l">Cancel</button>
+                </div>
+            </div>
         </div>
     </div>
 </section>
