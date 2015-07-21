@@ -3,6 +3,8 @@
  */
 
 var participants = 0;
+var restaurant = -1;
+var defaultMeal = -1;
 
 $( document ).ready(function() {
     $(".date").datetimepicker();
@@ -193,29 +195,29 @@ function submit() {
     var description = $("#description").val();
     var location = $("#location").val();
     var participants = $("#participants").val();
-    var restaurant = $("#restaurant").val();
     var prperson = $("#prperson").val();
+
 
     $("#restaurantInformation").hide(1000);
     scrollToTop();
     $("#successInformation").show(1000);
 
-    //TODO: change URL
-    $.post("/",
-     {
+    //TODO: update function
+    $.post("/", {
          title: title,
          start: timeStart,
          end: timeEnd,
          description: description,
          participants: participants,
          restaurant: restaurant,
-         prperson: prperson
-     },
-     function(data, status){
-         // alert("Data: " + data + "\nStatus: " + status);
-         console.log(data)
-     }
-     );
+         prperson: prperson,
+         defaultmeal: defaultMeal
+
+        }, function(data, status){
+            // alert("Data: " + data + "\nStatus: " + status);
+            console.log(data)
+        }
+    );
 }
 
 function chooserestaurant(){
@@ -223,42 +225,92 @@ function chooserestaurant(){
     var title = $("#title");
     var timeStart = $("#timestart");
     var location = $("#location");
-    var participants = $("#participants");
+    var participants = $("#participants-tokenfield");
+    var availablePrPerson = $("#prperson");
+    var budget = $("#budget");
 
     $(".form-group").removeClass("has-error");
-    var hasErrors = false;
 
     if (!title.val()){
         title.closest('div[class^="form-group"]').addClass("has-error");
-        hasErrors = true;
-    }
-    if (!timeStart.val()){
-        timeStart.closest('div[class^="form-group"]').addClass("has-error");
-        hasErrors = true;
-    }
-    if (!location.val()){
-        location.closest('div[class^="form-group"]').addClass("has-error");
-        hasErrors = true;
-    }
-    if (!participants.val()){
-        participants.closest('div[class^="form-group"]').addClass("has-error");
-        hasErrors = true;
-    }
-    if (hasErrors){
+        title.focus();
         scrollToTop();
         return;
     }
+    if (!timeStart.val()){
+        timeStart.closest('div[class^="form-group"]').addClass("has-error");
+        timeStart.focus();
+        scrollToTop();
+        return;
+    }
+    if (!location.val()){
+        location.closest('div[class^="form-group"]').addClass("has-error");
+        location.focus();
+        scrollToTop();
+        return;
+    }
+    if (this.participants < 1){
+        participants.closest('div[class^="form-group"]').addClass("has-error");
+        participants.focus();
+        return;
+    }
+    if (!availablePrPerson.val() || availablePrPerson.val() <= 0){
+        availablePrPerson.closest('div[class^="form-group"]').addClass("has-error");
+        budget.closest('div[class^="form-group"]').addClass("has-error");
+        budget.focus();
+        return;
+    }
 
-    restaurantPicker();
+    var container = $("#restaurants");
+    container.empty();
+
+    $.getJSON("/api/meals.json?prperson=" + (availablePrPerson.val() * 100) +"", function(result){
+        console.log(result);
+        for (var i = 0; i < result.length; i++){
+            var restaurant = result[i]["restaurant"];
+            var meals = result[i]["meals"];
+
+            var priceLow = 9007199254740992;
+            var priceHigh = -9007199254740992;
+            for(var k = 0; k < meals.length; k++){
+                priceLow = Math.min(priceLow, meals[k]["price"]);
+                priceHigh = Math.max(priceHigh, meals[k]["price"]);
+            }
+            var rowDiv = $('<div class="row restaurant-group"></div>');
+            rowDiv.append(generateRestaurantHtml(restaurant["title"],restaurant["description"], restaurant["image"], priceLow, priceHigh, restaurant["id"]));
+            for(var j = 0; j < meals.length; j++){
+                rowDiv.append(generateMealHtml(meals[j]["title"], meals[j]["description"], meals[j]["image"], meals[j]["price"], meals[j]["id"]));
+            }
+            container.append(rowDiv);
+        }
+        restaurantPicker();
+    });
+
     $("#eventInformation").hide(1000);
     scrollToTop();
     $("#restaurantInformation").show(1000);
 }
 
+function generateRestaurantHtml(title, description, image, priceLow, priceHigh, id){
+    priceLow = (priceLow / 100) * participants;
+    priceHigh = (priceHigh / 100) * participants;
+    return '<div class="col-sm-4 col-lg-2 resta-card" id="' + id + '"><div class="thumbnail"> <img src="' + image + '"> <div class="post-content"> <div class="caption"> <p class="title-header">' + title +'</p> <p class="price-header">$' + priceLow + '-$' + priceHigh + '</p></div></div></div><div class="resta-description"><p>' + description + '</p> </div></div>';
+}
+
+function generateMealHtml(title, description, image, price, id){
+    price = price / 100;
+    //return '<div class="col-sm-4 col-lg-2 hidden-xs meal-card"><div class="thumbnail"> <img src="img/' + image + '"> <div class="post-content"> <div class="caption"> <p class="title-header">' + title +'</p> <p class="price-header"><img src="img/icon_cow.png"><span style="margin-right: 10px"></span>$' + price + '</p> </div></div></div><div class="resta-description"> <p>' + description + '</p> </div></div>';
+    return '<div class="col-sm-4 col-lg-2 hidden-xs meal-card" id="' + id + '"><div class="thumbnail"> <img src="img/burger.jpg"> <div class="post-content"> <div class="caption"> <p class="title-header">' + title +'</p> <p class="price-header"><img src="img/icon_cow.png"><span style="margin-right: 10px"></span>$' + price + '</p> </div></div></div><div class="resta-description"> <p>' + description + '</p> </div></div>';
+}
+
+
 function restaurantPicker(){
-    $(".restaurant-card").click(function(){
-        $(".restaurant-card").removeClass("picked-card");
-        $(this).addClass("picked-card");
+    $(".restaurant-group").click(function(){
+        $(".restaurant-group").removeClass("picked-group");
+        $(this).addClass("picked-group");
+        restaurant = $(this).find(".resta-card").attr("id");
+        defaultMeal = $(this).find(".meal-card:first").attr("id");
+        $("#submitbutton").prop("disabled", false);
     });
 }
 
