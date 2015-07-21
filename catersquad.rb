@@ -85,11 +85,17 @@ class Catersquad < Sinatra::Base
     {:status => "success"}.to_json
   end
 
-  get "api/getMeals.json" do
+  get "/api/getMeals.json" do
     content_type :json
-=begin
-  return all meals for a particular restaurant. params["restaurant_id"] is given.
-=end
+    meals = DB[:meals]
+    meals.where(:restaurant_id => params["restaurant_id"]).all.to_json
+  end
+
+  post "/api/delMeals.json" do
+    content_type :json
+    meals = DB[:meals]
+    meals.where(:id => params["meal_id"]).delete
+    {:status => "success"}.to_json
   end
 
 end
