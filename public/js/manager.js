@@ -215,10 +215,10 @@ function submit() {
             console.log("Data: " + data + "\nStatus: " + status);
             if (data["status"] === "success"){
                 $("#workingInformation").slideUp(500);
-                $("#successInformation").show(1000);
+                $("#successInformation").slideDown(1000);
             } else {
                 $("#workingInformation").slideUp(500);
-                $("#failInformation").show(1000);
+                $("#failInformation").slideDown(1000);
             }
     });
 }
@@ -287,11 +287,11 @@ function chooserestaurant(){
             container.append(rowDiv);
         }
         restaurantPicker();
+        $("#restaurantInformation").slideDown(1000);
     });
 
-    $("#eventInformation").hide(1000);
+    $("#eventInformation").slideUp(1000);
     scrollToTop();
-    $("#restaurantInformation").show(1000);
 }
 
 function generateRestaurantHtml(title, description, image, priceLow, priceHigh, id){

@@ -68,6 +68,10 @@ img {
 }
 
 .resta-description p {
+    color: black;
+}
+
+.resta-card .resta-description p {
     color: white;
 }
 
@@ -89,9 +93,9 @@ img {
     font-family: "Roboto Condensed", sans-serif;
     font-weight: bold;
     margin: 20px 0;
-    border: 1px transparent solid;
+    border: 2px transparent solid;
 }
 
 .picked-group {
-    border: 1px blue solid;
+    border: 2px #c05f5f solid;
 }

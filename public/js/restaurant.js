@@ -70,20 +70,19 @@ function createmeal(){
             description: description,
             price: price,
             image: image,
-            restaurant_id: 1
+            restaurant_id: 4
         },
         function(data, status){
             console.log("Data: " + data + "\nStatus: " + status);
             if (data["status"] === "success"){
-                //Go to menu
+                meals.push(meal);
+                updateGui();
+                showmeals();
             } else {
                 //Show error
             }
         }
     );
-    meals.push(meal);
-    updateGui();
-    showmeals();
 }
 
 function updateGui(){
