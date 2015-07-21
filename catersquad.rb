@@ -63,7 +63,7 @@ class Catersquad < Sinatra::Base
 
     results = []
     rests.each do |rest|
-      meals_res = DB["SELECT * FROM public.meals WHERE meals.price <= #{params["prperson"].to_i} AND meals.restaurant_id = #{rest[:restaurant_id]} limit 5;"].all
+      meals_res = DB["SELECT * FROM public.meals WHERE meals.price <= #{params["prperson"].to_i} AND meals.restaurant_id = #{rest[:id]} limit 5;"].all
       # meals_res = meals.where(:price < params["prperson"].to_i).all
       results << {:restaurant => rest, :meals => meals_res}
     end
