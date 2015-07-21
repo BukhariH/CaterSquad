@@ -20,7 +20,7 @@ class Catersquad < Sinatra::Base
   post "/" do
     content_type :json
    events = DB[:events]
-   events.insert(:title => params["title"], :description => params["description"], :endDate => params["end"], :startDate => params["start"], :prperson => params["prperson"].to_i * 100)
+   events.insert(:title => params["title"], :description => params["description"], :restaurant_id => params["restaurant_id"], :endDate => params["end"], :startDate => params["start"], :prperson => params["prperson"].to_i * 100)
     participants = params["participants"].split(',')
     event_id = events.where(:title => params["title"], :description => params["description"], :endDate => params["end"], :startDate => params["start"], :prperson => params["prperson"].to_i * 100).limit(1).first[:id]
     parts_db = DB[:participants]
@@ -40,15 +40,14 @@ class Catersquad < Sinatra::Base
     erb :restaurant
   end
 
-  get "/api/participant.json"
+  get "/api/participant.json" do
     participants = DB[:participants]
     events = DB[:events]
     restaurants = DB[:restaurants]
     meals = DB[:meals]
     part = participants.where(:hash => params["hash"]).first
     restaurant_id = events.where(:event_id => part[:event_id]).first[:restaurant_id]
-    meals_res = DB["SELECT * FROM public.meals WHERE meals.price <= #{part[prperson].to_i} limit 5;"].all
-
+    meals_res = DB["SELECT * FROM public.meals WHERE meals.price <= #{part[:prperson].to_i} AND meals.restaurant_id = #{restaurant_id} limit 5;"].all
 
   end
 
