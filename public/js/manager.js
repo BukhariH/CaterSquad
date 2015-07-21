@@ -197,13 +197,10 @@ function submit() {
     var participants = $("#participants").val();
     var prperson = $("#prperson").val();
 
-
-    $("#restaurantInformation").hide(1000);
+    $("#restaurantInformation").slideUp(1000);
     scrollToTop();
-    $("#successInformation").show(1000);
+    $("#workingInformation").slideDown(500);
 
-    console.log("Post event to server");
-    //TODO: update function
     $.post("/", {
          title: title,
          start: timeStart,
@@ -211,13 +208,19 @@ function submit() {
          description: description,
          participants: participants,
          restaurant_id: restaurant,
+         location: location,
          prperson: prperson,
          meal_id: defaultMeal
         }, function(data, status){
-            //alert("Data: " + data + "\nStatus: " + status);
-            console.log(data);
+            console.log("Data: " + data + "\nStatus: " + status);
+            if (data["status"] === "success"){
+                $("#workingInformation").slideUp(500);
+                $("#successInformation").show(1000);
+            } else {
+                $("#workingInformation").slideUp(500);
+                $("#failInformation").show(1000);
+            }
     });
-    console.log("Event posted to server");
 }
 
 function chooserestaurant(){
