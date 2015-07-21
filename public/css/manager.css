@@ -73,13 +73,23 @@ img {
 
 #restaurants .col-sm-4 {
     padding-top: 15px;
-
 }
 
 .resta-card {
     background-color: grey;
+    min-height: 275px;
 }
 
 .meal-card {
     background-color: lightgray;
+    min-height: 275px;
+}
+
+.restaurant-group {
+    margin: 20px 0;
+    border: 1px transparent solid;
+}
+
+.picked-group {
+    border: 1px blue solid;
 }
