@@ -51,7 +51,7 @@ class Catersquad < Sinatra::Base
     meals = DB[:meals]
     part = participants.where(:hash => params["hash"]).first
     rest = events.where(:id => part[:event_id]).first
-    meals_res = DB["SELECT * FROM public.meals WHERE meals.price <= #{rest[:prperson]} AND meals.restaurant_id = #{rest[:restaurant_id]} limit 5;"].all
+    meals_res = DB["SELECT * FROM public.meals WHERE meals.price <= #{rest[:prperson]} AND meals.restaurant_id = #{rest[:id]} limit 5;"].all
     puts meals_res
     meals_res.to_json
   end
