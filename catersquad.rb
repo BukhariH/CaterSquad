@@ -101,9 +101,4 @@ class Catersquad < Sinatra::Base
     {:status => "success"}.to_json
   end
 
-  get "/test" do 
-    content_type :json
-    resp = HTTParty.post("https://api.sendgrid.com/api/mail.send.json", query: {api_user: 'bukharih', api_key: 'ABN2a6jNCSvEGV6XFIYEX', to: 'hasnain@dime.im', toname: 'hasnain@dime.im', subject: 'Time to pick your meal!', html: "Hey here's your link",  from: 'hello@catersquad.com'})
-  end
-
 end
