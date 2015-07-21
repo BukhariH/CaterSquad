@@ -18,15 +18,15 @@ function loadMeals(){
 }
 
 function addmeal(){
-    $("#viewmeals").hide(1000);
+    $("#viewmeals").slideUp(1000);
     scrollToTop();
-    $("#addmeal").show(1000);
+    $("#addmeal").slideDown(1000);
 }
 
 function showmeals(){
-    $("#addmeal").hide(500);
+    $("#addmeal").slideUp(500);
     scrollToTop();
-    $("#viewmeals").show(500);
+    $("#viewmeals").slideDown(500);
 }
 
 function createmeal(){
@@ -64,6 +64,23 @@ function createmeal(){
 
     var meal = new Meal(title.val(), description.val(), image.val(), price.val());
     //TODO: update to server
+    $.post("/api/createMeal.json",
+        {
+            title: title,
+            description: description,
+            price: price,
+            image: image,
+            restaurant_id: 1
+        },
+        function(data, status){
+            console.log("Data: " + data + "\nStatus: " + status);
+            if (data["status"] === "success"){
+                //Go to menu
+            } else {
+                //Show error
+            }
+        }
+    );
     meals.push(meal);
     updateGui();
     showmeals();

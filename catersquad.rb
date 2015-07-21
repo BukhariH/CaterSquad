@@ -75,4 +75,21 @@ class Catersquad < Sinatra::Base
     {:status => "success"}.to_json
   end
 
+=begin
+  There might be some mistakes here, since I don't know the exact structure of the DB nor the syntax.
+=end
+  post "/api/createMeal.json" do
+    content_type :json
+    meals = DB[:meals]
+    meals.insert(:title => params["title"], :description => params["description"], :price => params["price"].to_i * 100, :image => params["image"], :restaurant_id => params["restaurant_id"])
+    {:status => "success"}.to_json
+  end
+
+  get "api/getMeals.json" do
+    content_type :json
+=begin
+  return all meals for a particular restaurant. params["restaurant_id"] is given.
+=end
+  end
+
 end
