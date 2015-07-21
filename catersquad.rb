@@ -68,7 +68,7 @@ class Catersquad < Sinatra::Base
     results.to_json
   end
 
-  get "/api/updateMeal.json" do
+  post "/api/updateMeal.json" do
     content_type :json
     participants = DB[:participants]
     participants.where(:hash => params["hash"]).update(:meal_id => params["meal_id"])
