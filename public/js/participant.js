@@ -7,8 +7,6 @@
  * http://localhost:9393/participant?hash=09dacfbb139cb077f34037db4d5e260ea24c2fce
  */
 
-
-
 var meal = 0;
 var hash;
 

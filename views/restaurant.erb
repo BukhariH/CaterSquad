@@ -14,6 +14,7 @@
 
     <!-- Custom CSS -->
     <link href="css/main.css" rel="stylesheet">
+    <link href="css/participant.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -47,8 +48,22 @@
 <!-- Selection Section -->
 <section class="selection-section">
     <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="restaurant-id">Restaurant-id</label>
+                    <input type="number" class="form-control" id="restaurant-id">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <button onclick="loadMeals()">Reload</button>
+                </div>
+            </div>
+        </div>
         <div id="viewmeals">
-            <ul class="list-group" id="meals"> <!--
+            <!--
+            <ul class="list-group" id="meals">
             <li>
                 <div class="panel panel-default restaurant-card">
                     <div class="panel-heading">
@@ -64,8 +79,11 @@
                         <p>footer</p>
                     </div>
                 </div>
-            </li> -->
-            </ul>
+            </li>
+            </ul>-->
+            <div id="meals">
+
+            </div>
 
             <div class="row">
                 <div class="col-lg-12">

@@ -10,11 +10,31 @@ $( document ).ready(function() {
 
 function loadMeals(){
     //TODO: load meals
-    meals.push(new Meal("Title1", "description", "burger.jpg", 20));
-    meals.push(new Meal("Title2", "description", "burger.jpg", 20));
-    meals.push(new Meal("Title3", "description", "burger.jpg", 20));
 
-    updateGui();
+
+    for (i = 0; i < meals.length; i++){
+        $("#meals").append(meals[i].generateHtml());
+    }
+    $("#meals").empty();
+    var restaurantId = $("#restaurant-id").val();
+    if (!restaurantId){
+        return;
+    }
+    console.log("Retrieving meals from restaurant with id: " + restaurantId);
+    $.getJSON("/api/getMeals.json?restaurant_id=" + restaurantId, function(result){
+        console.log(result);
+        for (var i = 0; i < result.length; i++){
+            $("#meals").append(generateMealHtml(result[i]["title"], result[i]["description"], result[i]["price"], result[i]["image"], result[i]["id"]));
+        }
+        $(".meal-card").click(function(){
+            var result = confirm("Want to delete?");
+            if (result){
+                var mealId = $(this).find("img").attr("id");
+                console.log("Deleting: " + mealId);
+                deleteMeal(mealId);
+            }
+        });
+    });
 }
 
 function addmeal(){
@@ -34,8 +54,7 @@ function createmeal(){
     var image = $("#image");
     var price = $("#price");
     var description = $("#description");
-
-    //TODO: validation
+    var restaurantId = $("#restaurant-id");
 
     $(".form-group").removeClass("has-error");
     var hasErrors = false;
@@ -56,27 +75,28 @@ function createmeal(){
         description.closest('div[class^="form-group"]').addClass("has-error");
         hasErrors = true;
     }
+    if (!restaurantId.val()){
+        restaurantId.closest('div[class^="form-group"]').addClass("has-error");
+        hasErrors = true;
+    }
 
     if (hasErrors){
         scrollToTop();
         return;
     }
 
-    var meal = new Meal(title.val(), description.val(), image.val(), price.val());
-    //TODO: update to server
     $.post("/api/createMeal.json",
         {
-            title: title,
-            description: description,
-            price: price,
-            image: image,
-            restaurant_id: 4
+            title: title.val(),
+            description: description.val(),
+            price: price.val(),
+            image: image.val(),
+            restaurant_id: restaurantId.val()
         },
         function(data, status){
             console.log("Data: " + data + "\nStatus: " + status);
             if (data["status"] === "success"){
-                meals.push(meal);
-                updateGui();
+                loadMeals();
                 showmeals();
             } else {
                 //Show error
@@ -85,30 +105,30 @@ function createmeal(){
     );
 }
 
-function updateGui(){
-    $("#meals").empty();
-    for (i = 0; i < meals.length; i++){
-        $("#meals").append(meals[i].generateHtml());
-    }
+/*function generateMealHtml(title, description, image, price, id){
+    return '<li><div class="panel panel-default restaurant-card"><div class="panel-heading"><p>' + title +'</p></div><div class="panel-body"><div class="panel-info"> <p>info</p></div></div><div class="panel-footer"><p>footer</p></div></div></li>';
+}*/
+
+function deleteMeal(meal_id){
+    $.post("/api/delMeals.json",
+        {
+            meal_id: meal_id
+        },
+        function(data, status){
+            console.log("Data: " + data + "\nStatus: " + status);
+            if (data["status"] === "success"){
+                loadMeals();
+                showmeals();
+            } else {
+                //Show error
+            }
+        }
+    );
 }
 
-function Meal(title, description, image, price) {
-    this.title = title;
-    this.description = description;
-    this.image = image;
-    this.price = price;
-
-    this.generateHtml = function(){
-        return '<li><div class="panel panel-default restaurant-card"><div class="panel-heading"><p>' + this.title +'</p></div><div class="panel-body"><div class="panel-info"> <p>info</p></div></div><div class="panel-footer"><p>footer</p></div></div></li>';
-    }
-}
-
-function removeMeal(meal){
-    var index = meals.indexOf(meal);
-    if (index > -1){
-        meals.splice(index, 1);
-    }
-    updateGui();
+function generateMealHtml(title, description, price, image, id){
+    price = price / 100;
+    return '<div class="col-md-6"><div class="panel panel-default meal-card"><div class="panel-body"><div class="panel-info"><div><img src="img/burger.jpg" id="'+id+'"></div></div></div><div class="panel-footer"> <h3>'+title+'</h3> <p>'+description+' ($'+price+')</p></div></div></div>';
 }
 
 function scrollToTop(){
