@@ -47,9 +47,7 @@ class Catersquad < Sinatra::Base
     restaurants = DB[:restaurants]
     meals = DB[:meals]
     part = participants.where(:hash => params["hash"]).first
-    puts part
     restaurant_id = events.where(:id => part[:event_id]).first[:restaurant_id]
-    # puts re
     meals_res = DB["SELECT * FROM public.meals WHERE meals.price <= 2000 AND meals.restaurant_id = 4 limit 5;"].all
     puts meals_res
     meals_res.to_json
@@ -68,6 +66,13 @@ class Catersquad < Sinatra::Base
     end
 
     results.to_json
+  end
+
+  get "/api/updateMeal.json" do
+    content_type :json
+    participants = DB[:participants]
+    participants.where(:hash => params["hash"]).update(:meal_id => params["meal_id"])
+    {:status => "success"}.to_json
   end
 
 end
