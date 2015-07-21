@@ -26,19 +26,30 @@ class Catersquad < Sinatra::Base
     parts_db = DB[:participants]
     participants.each do |participant|
       hash = Digest::SHA1.hexdigest(participant + SecureRandom.hex)
-      parts_db.insert(:email => participant, :hash => hash, :event_id => event_id)
+      parts_db.insert(:email => participant, :hash => hash, :event_id => event_id, :meal_id => params["meal_id"])
     end
 
     {:status => "success", :event_id => event_id}
   end
 
-  get "/participant/:hash" do
-
-    # erb :participant
+  get "/participant" do
+    erb :participant
   end
 
   get "/restaurant" do
     erb :restaurant
+  end
+
+  get "/api/participant.json"
+    participants = DB[:participants]
+    events = DB[:events]
+    restaurants = DB[:restaurants]
+    meals = DB[:meals]
+    part = participants.where(:hash => params["hash"]).first
+    restaurant_id = events.where(:event_id => part[:event_id]).first[:restaurant_id]
+    meals_res = DB["SELECT * FROM public.meals WHERE meals.price <= #{part[prperson].to_i} limit 5;"].all
+
+
   end
 
   get "/api/meals.json" do
