@@ -86,6 +86,8 @@ img {
 }
 
 .restaurant-group {
+    font-family: "Roboto Condensed", sans-serif;
+    font-weight: bold;
     margin: 20px 0;
     border: 1px transparent solid;
 }

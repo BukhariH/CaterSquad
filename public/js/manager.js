@@ -209,9 +209,9 @@ function submit() {
          end: timeEnd,
          description: description,
          participants: participants,
-         restaurant: restaurant,
+         restaurant_id: restaurant,
          prperson: prperson,
-         defaultmeal: defaultMeal
+         meal_id: defaultMeal
 
         }, function(data, status){
             // alert("Data: " + data + "\nStatus: " + status);
@@ -292,12 +292,14 @@ function chooserestaurant(){
 }
 
 function generateRestaurantHtml(title, description, image, priceLow, priceHigh, id){
+    title = title.toUpperCase();
     priceLow = (priceLow / 100) * participants;
     priceHigh = (priceHigh / 100) * participants;
     return '<div class="col-sm-4 col-lg-2 resta-card" id="' + id + '"><div class="thumbnail"> <img src="' + image + '"> <div class="post-content"> <div class="caption"> <p class="title-header">' + title +'</p> <p class="price-header">$' + priceLow + '-$' + priceHigh + '</p></div></div></div><div class="resta-description"><p>' + description + '</p> </div></div>';
 }
 
 function generateMealHtml(title, description, image, price, id){
+    title = title.toUpperCase();
     price = price / 100;
     //return '<div class="col-sm-4 col-lg-2 hidden-xs meal-card"><div class="thumbnail"> <img src="img/' + image + '"> <div class="post-content"> <div class="caption"> <p class="title-header">' + title +'</p> <p class="price-header"><img src="img/icon_cow.png"><span style="margin-right: 10px"></span>$' + price + '</p> </div></div></div><div class="resta-description"> <p>' + description + '</p> </div></div>';
     return '<div class="col-sm-4 col-lg-2 hidden-xs meal-card" id="' + id + '"><div class="thumbnail"> <img src="img/burger.jpg"> <div class="post-content"> <div class="caption"> <p class="title-header">' + title +'</p> <p class="price-header"><img src="img/icon_cow.png"><span style="margin-right: 10px"></span>$' + price + '</p> </div></div></div><div class="resta-description"> <p>' + description + '</p> </div></div>';
