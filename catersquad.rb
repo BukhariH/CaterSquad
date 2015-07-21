@@ -29,7 +29,7 @@ class Catersquad < Sinatra::Base
       parts_db.insert(:email => participant, :hash => hash, :event_id => event_id, :meal_id => params["meal_id"])
     end
 
-    {:status => "success", :event_id => event_id}
+    {:status => "success", :event_id => event_id}.to_json
   end
 
   get "/participant" do
