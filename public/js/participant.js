@@ -23,12 +23,14 @@ function loadImages(){
             console.log(result[i]);
             if (i%2 == 0){
                 rowDiv = $('<div class="row"></div>');
-
             }
             rowDiv.append(generateMealHtml(result[i]["title"], result[i]["description"], result[i]["price"], result[i]["image"], result[i]["id"]));
             if (i%2 == 1){
                 container.append(rowDiv);
             }
+        }
+        if (result.length%2 == 1){
+            container.append(rowDiv);
         }
         setOnClickListener();
     });
