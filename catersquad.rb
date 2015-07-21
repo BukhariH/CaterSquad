@@ -3,12 +3,14 @@ require 'sequel'
 require 'SecureRandom'
 require 'digest/sha1'
 require 'Date'
+require 'httparty'
 
-require 'mandrill'
-mandrill = Mandrill::API.new 'smlwk6WCFKTbxU5hjOb3qg'
+require 'sendgrid-ruby'
+
 
 class Catersquad < Sinatra::Base
-	
+  @client = SendGrid::Client.new(api_user: 'bukharih', api_key: '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')
+
 	DB = Sequel.connect('postgres://idzwaykrnfvkeu:qVtnOGJuUlME0UDDAyUjN_O8U5@ec2-54-228-180-92.eu-west-1.compute.amazonaws.com:5432/dbohuugivq02rr')
 
   set :public_folder => "public", :static => true
@@ -27,6 +29,7 @@ class Catersquad < Sinatra::Base
     participants.each do |participant|
       hash = Digest::SHA1.hexdigest(participant + SecureRandom.hex)
       parts_db.insert(:email => participant, :hash => hash, :event_id => event_id, :meal_id => params["meal_id"])
+      HTTParty.post("https://api.sendgrid.com/api/mail.send.json", query: {api_user: 'bukharih', api_key: 'ABN2a6jNCSvEGV6XFIYEX', to: participant, toname: participant, subject: 'Time to pick your meal!', html: "Hey here's your link: <a href='http://app.catersquad.com/participant?hash=#{hash}'>http://app.catersquad.com/participant?hash=#{hash}</a> ",  from: 'hello@catersquad.com'})
     end
 
     {:status => "success", :event_id => event_id}.to_json
@@ -47,8 +50,8 @@ class Catersquad < Sinatra::Base
     restaurants = DB[:restaurants]
     meals = DB[:meals]
     part = participants.where(:hash => params["hash"]).first
-    restaurant_id = events.where(:id => part[:event_id]).first[:restaurant_id]
-    meals_res = DB["SELECT * FROM public.meals WHERE meals.price <= #{part[:prperson]} AND meals.restaurant_id = #{restaurant_id} limit 5;"].all
+    rest = events.where(:id => part[:event_id]).first
+    meals_res = DB["SELECT * FROM public.meals WHERE meals.price <= #{rest[:prperson]} AND meals.restaurant_id = #{rest[:restaurant_id]} limit 5;"].all
     puts meals_res
     meals_res.to_json
   end
@@ -96,6 +99,11 @@ class Catersquad < Sinatra::Base
     meals = DB[:meals]
     meals.where(:id => params["meal_id"]).delete
     {:status => "success"}.to_json
+  end
+
+  get "/test" do 
+    content_type :json
+    resp = HTTParty.post("https://api.sendgrid.com/api/mail.send.json", query: {api_user: 'bukharih', api_key: 'ABN2a6jNCSvEGV6XFIYEX', to: 'hasnain@dime.im', toname: 'hasnain@dime.im', subject: 'Time to pick your meal!', html: "Hey here's your link",  from: 'hello@catersquad.com'})
   end
 
 end

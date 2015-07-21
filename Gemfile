@@ -10,7 +10,9 @@ gem "pg"
 gem "puma"
 gem "shotgun"
 
-gem 'mandrill-api'
+gem 'sendgrid-ruby'
+
+gem 'httparty'
 
 group :development do
   gem "rake", "~> 10.0"
