@@ -202,6 +202,7 @@ function submit() {
     scrollToTop();
     $("#successInformation").show(1000);
 
+    console.log("Post event to server");
     //TODO: update function
     $.post("/", {
          title: title,
@@ -212,12 +213,11 @@ function submit() {
          restaurant_id: restaurant,
          prperson: prperson,
          meal_id: defaultMeal
-
         }, function(data, status){
-            // alert("Data: " + data + "\nStatus: " + status);
-            console.log(data)
-        }
-    );
+            //alert("Data: " + data + "\nStatus: " + status);
+            console.log(data);
+    });
+    console.log("Event posted to server");
 }
 
 function chooserestaurant(){
