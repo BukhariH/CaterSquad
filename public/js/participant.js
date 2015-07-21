@@ -38,17 +38,27 @@ function loadImages(){
 
 function generateMealHtml(title, description, price, image, id){
     price = price / 100;
-    return '<div class="col-md-6"><div class="panel panel-default restaurant-card"><div class="panel-body"><div class="panel-info"><div><img src="img/burger.jpg" id="'+id+'"></div></div></div><div class="panel-footer"> <h3>'+title+'</h3> <p>'+description+'($'+price+')</p></div></div></div>';
+    return '<div class="col-md-6"><div class="panel panel-default restaurant-card"><div class="panel-body"><div class="panel-info"><div><img src="img/burger.jpg" id="'+id+'"></div></div></div><div class="panel-footer"> <h3>'+title+'</h3> <p>'+description+' ($'+price+')</p></div></div></div>';
 }
 
 function submit() {
+    $("#mealInformation").slideUp(1000);
+    scrollToTop();
+    $("#workingInformation").slideDown(500);
     $.post("/api/updateMeal.json",
         {
             hash: hash,
             meal_id: meal
         },
         function(data, status){
-            alert("Data: " + data + "\nStatus: " + status);
+            console.log("Data: " + data + "\nStatus: " + status);
+            if (data["status"] === "success"){
+                $("#workingInformation").slideUp(500);
+                $("#successInformation").show(1000);
+            } else {
+                $("#workingInformation").slideUp(500);
+                $("#failInformation").show(1000);
+            }
         }
     );
 }
@@ -62,6 +72,7 @@ function setOnClickListener(){
         $(".restaurant-card").removeClass("picked-card");
         $(this).addClass("picked-card");
         meal = $(this).find("img").attr("id");
+        $("#submitButton").slideDown(100);
     });
 }
 
@@ -74,4 +85,7 @@ function getUrlParameter(sParam) {
             return sParameterName[1];
         }
     }
+}
+function scrollToTop(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
 }

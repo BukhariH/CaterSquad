@@ -315,7 +315,7 @@ function restaurantPicker(){
         $(this).addClass("picked-group");
         restaurant = $(this).find(".resta-card").attr("id");
         defaultMeal = $(this).find(".meal-card:first").attr("id");
-        $("#submitbutton").prop("disabled", false);
+        $("#submitButton").slideDown(100);
     });
 }
 
