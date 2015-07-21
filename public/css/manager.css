@@ -1,9 +1,3 @@
-@media (min-width: 979px) {
-    body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-    }
-}
-
 .post-content {
     opacity: 0.8;
     left:0;
@@ -67,25 +61,18 @@ img {
     text-align: left;
 }
 
-.resta-description p {
-    color: black;
-}
-
-.resta-card .resta-description p {
-    color: white;
-}
 
 #restaurants .col-sm-4 {
     padding-top: 15px;
 }
 
 .resta-card {
-    background-color: grey;
+    /*background-color: #FFEFFC;*/
     min-height: 275px;
 }
 
 .meal-card {
-    background-color: lightgray;
+    /*background-color: EFFEFFC;*/
     min-height: 275px;
 }
 
