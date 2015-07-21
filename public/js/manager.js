@@ -305,7 +305,7 @@ function generateMealHtml(title, description, image, price, id){
     title = title.toUpperCase();
     price = price / 100;
     //return '<div class="col-sm-4 col-lg-2 hidden-xs meal-card"><div class="thumbnail"> <img src="img/' + image + '"> <div class="post-content"> <div class="caption"> <p class="title-header">' + title +'</p> <p class="price-header"><span style="margin-right: 10px"></span>$' + price + '</p> </div></div></div><div class="resta-description"> <p>' + description + '</p> </div></div>';
-    return '<div class="col-sm-4 col-lg-2 hidden-xs meal-card" id="' + id + '"><div class="thumbnail"> <img src="img/burger.jpg"> <div class="post-content"> <div class="caption"> <p class="title-header">' + title +'</p> <p class="price-header"><span style="margin-right: 10px"></span>$' + price + '</p> </div></div></div><div class="resta-description"> <p>' + description + '</p> </div></div>';
+    return '<div class="col-sm-4 col-lg-2 hidden-xs meal-card" id="' + id + '"><div class="thumbnail"> <img src="img/'+image+'"> <div class="post-content"> <div class="caption"> <p class="title-header">' + title +'</p> <p class="price-header"><span style="margin-right: 10px"></span>$' + price + '</p> </div></div></div><div class="resta-description"> <p>' + description + '</p> </div></div>';
 }
 
 

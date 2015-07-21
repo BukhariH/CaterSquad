@@ -128,7 +128,7 @@ function deleteMeal(meal_id){
 
 function generateMealHtml(title, description, price, image, id){
     price = price / 100;
-    return '<div class="col-md-6"><div class="panel panel-default meal-card"><div class="panel-body"><div class="panel-info"><div><img src="img/burger.jpg" id="'+id+'"></div></div></div><div class="panel-footer"> <h3>'+title+'</h3> <p>'+description+' ($'+price+')</p></div></div></div>';
+    return '<div class="col-md-6"><div class="panel panel-default meal-card"><div class="panel-body"><div class="panel-info"><div><img src="img/'+image+'" id="'+id+'"></div></div></div><div class="panel-footer"> <h3>'+title+'</h3> <p>'+description+' ($'+price+')</p></div></div></div>';
 }
 
 function scrollToTop(){
