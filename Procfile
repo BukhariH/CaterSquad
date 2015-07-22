@@ -1,1 +1,1 @@
-web: shotgun --server=puma config.ru -P $PORT
+web: shotgun --server=puma --port=$PORT config.ru 
