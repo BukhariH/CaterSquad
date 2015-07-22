@@ -1,6 +1,5 @@
 /**
  * Created by Lunding on 16/07/15.
- *
  * Endpoint:
  * http://localhost:9393/api/participant.json?hash=09dacfbb139cb077f34037db4d5e260ea24c2fce
  * User link:
