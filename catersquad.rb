@@ -1,8 +1,8 @@
 require 'json'
 require 'sequel'
-require 'SecureRandom'
+require 'securerandom'
 require 'digest/sha1'
-require 'Date'
+require 'date'
 require 'httparty'
 
 require 'sendgrid-ruby'
