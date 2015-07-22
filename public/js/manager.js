@@ -196,6 +196,9 @@ function submit() {
     var location = $("#location").val();
     var participants = $("#participants").val();
     var prperson = $("#prperson").val();
+    var budget = $("#budget").val();
+
+    $("#payment").append('<form action="" method="POST"> <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_z0cCzBIDAkyhm2vUGcOSDevqqN1Bq" data-amount=' + budget * 100 + '</script> </form>')    
 
     $("#restaurantInformation").slideUp(1000);
     scrollToTop();
