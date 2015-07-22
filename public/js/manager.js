@@ -202,6 +202,7 @@ function submit() {
 
     $("#restaurantInformation").slideUp(1000);
     scrollToTop();
+    $("#pageTitle").html("Payment");
     $("#workingInformation").slideDown(500);
 
     $.post("/", {
@@ -294,6 +295,7 @@ function chooserestaurant(){
     });
 
     $("#eventInformation").slideUp(1000);
+    $("#pageTitle").html("Choose restaurant");
     scrollToTop();
 }
 
