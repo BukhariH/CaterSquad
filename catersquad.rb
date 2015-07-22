@@ -30,13 +30,13 @@ class Catersquad < Sinatra::Base
       hash = Digest::SHA1.hexdigest(participant + SecureRandom.hex)
       parts_db.insert(:email => participant, :hash => hash, :event_id => event_id, :meal_id => params["meal_id"])
       mail = <<-EOS
-      <h1>Hey</h1>
+      Hey<br><br>
       You have been invited to:<br>
-      <h2>#{params["title"]}</h2><br>
-      Description:<br>#{params["description"]}<br><br>
-      It will be from: #{params["start"]} to #{params["end"]}<br><br>
+      #{params["title"]}<br><br>
+      #{params["description"]}<br><br>
+      The meeting will begin: #{params["start"]} and end: #{params["end"]}<br><br>
       Here's a link to pick your meal: <a href='http://app.catersquad.com/participant?hash=#{hash}'>http://app.catersquad.com/participant?hash=#{hash}</a><br><br>
-      Best regards<b>
+      Best regards<br>
       CaterSquad
       EOS
       HTTParty.post("https://api.sendgrid.com/api/mail.send.json", query: {api_user: 'bukharih', api_key: 'ABN2a6jNCSvEGV6XFIYEX', to: participant, toname: participant, subject: 'Time to pick your meal!', html: mail,  from: 'hello@catersquad.com'})
