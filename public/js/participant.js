@@ -29,15 +29,19 @@ function loadImages(){
             }
         }
         if (result.length%2 == 1){
+            rowDiv.append(generateMealHtml("Not attending", "Press this if you don't want food", 0, "cutlery.jpg", 1));
             container.append(rowDiv);
+        } else {
+            container.append('<div class="row">' + generateMealHtml("Not attending", "Press this if you don't want food", 0, "cutlery.jpg", 1) + '</div>');
         }
+
         setOnClickListener();
     });
 }
 
 function generateMealHtml(title, description, price, image, id){
     price = price / 100;
-    return '<div class="col-md-6"><div class="panel panel-default restaurant-card"><div class="panel-body"><div class="panel-info"><div><img src="img/'+image+'" id="'+id+'"></div></div></div><div class="panel-footer"> <h3>'+title+'</h3> <p>'+description+' ($'+price+')</p></div></div></div>';
+    return '<div class="col-md-6"><div class="panel panel-default restaurant-card"><div class="panel-body"><div class="panel-info"><img src="img/'+image+'" id="'+id+'"></div></div><div class="panel-footer"> <h3>'+title+'</h3> <p>'+description+' ($'+price+')</p></div></div></div>';
 }
 
 function submit() {
