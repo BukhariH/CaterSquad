@@ -1,1 +1,1 @@
-web: shotgun --server=puma -E production config.ru
+web: puma --port=$PORT
