@@ -32,9 +32,9 @@ class Catersquad < Sinatra::Base
       mail = <<-EOS
       Hey<br><br>
       You have been invited to:<br>
-      #{params["title"]}<br><br>
-      #{params["description"]}<br><br>
-      The meeting will begin: #{params["start"]} and end: #{params["end"]}<br><br>
+      <b>#{params["title"]}</b><br><br>
+      #{params["description"].gsub(/[\r\n]+/, "<br>")}<br><br>
+      The meeting will begin: <b>#{params["start"]}</b> and end: #{params["end"]}<br><br>
       Here's a link to pick your meal: <a href='http://app.catersquad.com/participant?hash=#{hash}'>http://app.catersquad.com/participant?hash=#{hash}</a><br><br>
       Best regards<br>
       CaterSquad
