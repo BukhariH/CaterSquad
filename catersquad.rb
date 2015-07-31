@@ -9,7 +9,7 @@ require 'sendgrid-ruby'
 
 
 class Catersquad < Sinatra::Base
-  @client = SendGrid::Client.new(api_user: 'bukharih', api_key: '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')
+  @client = SendGrid::Client.new(api_user: 'bukharih', api_key: '')
 
 	DB = Sequel.connect('postgres://idzwaykrnfvkeu:qVtnOGJuUlME0UDDAyUjN_O8U5@ec2-54-228-180-92.eu-west-1.compute.amazonaws.com:5432/dbohuugivq02rr')
 
@@ -39,7 +39,7 @@ class Catersquad < Sinatra::Base
       Best regards<br>
       CaterSquad
       EOS
-      HTTParty.post("https://api.sendgrid.com/api/mail.send.json", query: {api_user: 'bukharih', api_key: 'ABN2a6jNCSvEGV6XFIYEX', to: participant, toname: participant, subject: 'Time to pick your meal!', html: mail,  from: 'hello@catersquad.com'})
+      HTTParty.post("https://api.sendgrid.com/api/mail.send.json", query: {api_user: 'bukharih', api_key: '', to: participant, toname: participant, subject: 'Time to pick your meal!', html: mail,  from: 'hello@catersquad.com'})
     end
 
     {:status => "success", :event_id => event_id}.to_json
